@@ -8,9 +8,7 @@
     <artifactId>jsfHelloWorld</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <primefaces-version>5.2.RC1</primefaces-version>
-    </properties>
+
 
     <dependencies>
         <!--JSF (include "jsf-api" and "jsf-impl")-->
@@ -25,9 +23,8 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>${primefaces-version}</version>
+            <version>6.2</version>
         </dependency>
-
         <!--Primefaces themes-->
         <!--Primefaces темы-->
         <dependency>

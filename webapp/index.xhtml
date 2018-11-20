@@ -9,34 +9,62 @@
 
 <f:view>
     <h:head>
+        <link rel = "stylesheet" href="css/st.css"/>
         <title>JSF Title</title>
     </h:head>
 
     <h:body>
-        <h:panelGrid title="JSF panelGrid Title" border="10" columns="2">
+        <table class="rounded_corners" id="header" cellpadding="0" cellspacing="0" align="center">
+            <tbody>
+            <tr>
+                <td class = "header_cell" align="center" >
+                    Вариант 18002
+                </td>
+                <td class = "header_cell" align="center" >
+                    Авраменко Антон<br/>Давыдов Иван
+                </td>
+                <td class = "header_cell" align="center">
+                    P3200
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="rounded_corners" id="content"  align="center" >
+            <tr ></tr>
+            <tr>
+                <td align="center">
+                    <h:form>
 
-            <h:outputLabel value="JSF standart label"/>
-            <h:button value="JSF default button" title="JSF button Title" outcome="nextPage"/>
+                        <p:clock displayMode="analog" />
+                    </h:form>
+                </td>
+            </tr>
+            <tr>
+            <td align="center" >
+                <h:button id="mainBoottom" value="Основная страница" title="Основная страница" outcome="nextPage"/>
+            </td>
+        </tr>
+        </table>
+        <!--<h:panelGrid title="JSF panelGrid Title" border="10" columns="2">-->
 
-        </h:panelGrid>
+            <!--<h:outputLabel value="JSF standart label"/>-->
+            <!--<h:button value="JSF default button" title="JSF button Title" outcome="nextPage"/>-->
 
-        <br/>
+        <!--</h:panelGrid>-->
 
-        <!-- Без формы компоненты работать не будут -->
-        <h:form>
-            <p:panel header="PrimeFaces Components">
-                <p:outputLabel for="inputTextId" value="Введите значение: "/>
+        <!--<br/>-->
 
-                <p:inputText id="inputTextId" title="Binding with ManagedBean"
-                             value="#{mainBean.inputText}">
-                </p:inputText>
+        <!--&lt;!&ndash; Без формы компоненты работать не будут &ndash;&gt;-->
+       <!---->
 
-                <br/>
 
-                <p:commandButton value="GO to next page" action="nextPage"/>
+        <!--<h:form>-->
 
-            </p:panel>
-        </h:form>
+
+
+            <!--<h3>Analog</h3>-->
+            <!--<p:clock displayMode="analog"  syncInterval="12000" autoSync="TRUE" pattern="HH:mm:ss dd.MM.yyyy"/>-->
+        <!--</h:form>-->
 
     </h:body>
 </f:view>
