@@ -41,11 +41,23 @@
                 <h:form  id="xyr_form" name="xyr_form"  method="post" >
 
                     <p id = "x-block">Введите координату X:<br/>
-                        <p:inputText id="x_input" type="text" name="X" placeholder="{-5 ... 5}"
-                               maxlength="5"
-                               oninput= "setCustomValidity('')"
-                               size="20"
-                        /><br/></p>
+                        <p:commandButton class="x_input"  value="-4"/>
+                        <p:commandButton class="x_input" value="-3"/>
+                        <p:commandButton class="x_input" value="-2"/>
+                        <br/>
+                        <p:commandButton class="x_input" value="-1"/>
+                        <p:commandButton class="x_input" value="0"/>
+                        <p:commandButton class="x_input" value="1"/>
+                        <br/>
+                        <p:commandButton class="x_input" value="2"/>
+                        <p:commandButton class="x_input" value="3"/>
+                        <p:commandButton class="x_input" value="4"/>
+                        <!--<p:inputText id="x_input" type="text" name="X" placeholder="{-5 ... 5}"-->
+                               <!--maxlength="5"-->
+                               <!--oninput= "setCustomValidity('')"-->
+                               <!--size="20"-->
+                        <!--/>-->
+                    </p>
                     <p id = "y-block">Введите координату Y:<br/>
                         <p:inputText id="y_input" type="text" name="Y" placeholder="{-5 ... 3}"
                                maxlength="5"
@@ -53,14 +65,20 @@
                                size="20"
                         /><br/></p>
                     <p id = "r-block">Введите параметр R:<br/>
-                        <p:inputText id="r_input" type="text" name="R" placeholder="{1 ... 4}"
-                               maxlength="5"
-                               oninput= "setCustomValidity('')"
-                               size="20"
-                               value="2"
-                        /><br/></p>
+                        <!--<p:inputText id="r_input" type="text" name="R" placeholder="{1 ... 4}"-->
+                               <!--maxlength="5"-->
+                               <!--oninput= "setCustomValidity('')"-->
+                               <!--size="20"-->
+                               <!--value="2"-->
+                        <!--/>-->
+                        <p:commandLink value="1"/>
+                        <p:commandLink value="2"/>
+                        <p:commandLink value="3"/>
+                        <p:commandLink value="4"/>
+                        <p:commandLink value="5"/>
+                        <br/></p>
 
-                    <input/> type="submit" value="Проверить">
+                    <input type="submit" value="Проверить"/>
                 </h:form>
             </td>
 
