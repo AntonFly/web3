@@ -4,9 +4,7 @@ body {
     background-attachment:fixed;
     background-position:0 0;
 }
-.ui-analog-clock{
-    height: 400px;
-}
+
 #header {
     height: 80px;
     width: 1110px;
@@ -234,11 +232,4 @@ p{
     width: 70px;
     text-align: center;
 }
-#x-block >{
-    width: 50px;
 
-}
-/*.ui-button-text-only .ui-button-text {*/
-    /**/
-    /*width: 50px;*/
-/*}*/
