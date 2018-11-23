@@ -59,11 +59,17 @@
                         <!--/>-->
                     </p>
                     <p id = "y-block">Введите координату Y:<br/>
-                        <p:inputText id="y_input" type="text" name="Y" placeholder="{-5 ... 3}"
-                               maxlength="5"
-                               oninput= "setCustomValidity('')"
-                               size="20"
-                        /><br/></p>
+                        <p:inputText id="y_input"
+                                     type="text"
+                                     name="Y"
+                                     title="Целое или дробное число"
+                                     placeholder="{-5 ... 3}"
+                                     maxlength="5"
+                                     required="true"
+                                     requiredMessage="Неверный параметр Y, введите корректное знаечние"
+                                     validator="YValidator"
+                                     size="20"/>
+                        <br/></p>
                     <p id = "r-block">Введите параметр R:<br/>
                         <!--<p:inputText id="r_input" type="text" name="R" placeholder="{1 ... 4}"-->
                                <!--maxlength="5"-->
