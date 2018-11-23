@@ -35,12 +35,10 @@ function getCustomR() {
 
 function drawPoints() {
     let canvas = document.getElementById("grid");
-    alert(canvas);
     let ctx = canvas.getContext("2d");
-    alert(ctx);
     let customR = 2;
 
-   
+
     let allPointExist = true;
 
     let values = $("#result-table td").toArray();
@@ -56,7 +54,6 @@ function drawPoints() {
     if (!allPointExist)
         drawWarningMessage(ctx, "Не все точки будут отображены!", "#dc9100");
 
-    // drawBase(ctx, customR);
     drawCanvas(canvas,customR);
 }
 
