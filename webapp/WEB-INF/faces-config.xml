@@ -15,12 +15,6 @@
 
     </navigation-rule>
 
-        <managed-bean>
-            <managed-bean-name>ControllerBean</managed-bean-name>
-            <managed-bean-class>ControllerBean</managed-bean-class>
-            <managed-bean-scope>application</managed-bean-scope>
-        </managed-bean>
-
 
   
 </faces-config>

@@ -4,7 +4,9 @@ body {
     background-attachment:fixed;
     background-position:0 0;
 }
-
+.ui-analog-clock{
+    height: 400px;
+}
 #header {
     height: 80px;
     width: 1110px;
@@ -112,6 +114,13 @@ p{
 }
 
 /*~~~~~~result table~~~~~*/
+.result_table{
+    background-color: aliceblue;
+    border: none;/*2px solid rgb(255,102,0);*/
+    width: 555px;
+    margin-right: auto;
+    margin-left: auto;
+}
 #result_table{
     background-color: aliceblue;
     border: none;/*2px solid rgb(255,102,0);*/
