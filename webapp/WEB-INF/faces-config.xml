@@ -14,7 +14,20 @@
         </navigation-case>
 
     </navigation-rule>
-
+    <navigation-rule>
+        <from-view-id>/views/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>check</from-outcome>
+            <to-view-id>/views/secondPage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/views/secondPage.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/views/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
   
 </faces-config>

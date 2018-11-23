@@ -15,7 +15,7 @@
     <meta http-equiv="refresh"
           content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/views/index.xhtml"/>
     <link rel = "stylesheet" href="../resources/css/st.css"/>
-    <h:outputScript name="validation.js" library="js"/>
+    <link rel = "text/javascript" href="../resources/js/validation.js"/>
 
     <!--<h:outputScript name="sort_table.js" library="js"/>-->
     <!--<h:outputScript name="field.js" library="js"/>-->
@@ -102,7 +102,7 @@
 
         <tr id="main">
             <td id ="result_table_place"  colspan="2" height="0">
-                <h:dataTable value="#{result.allResults}" var="result"
+                <h:dataTable value="#{results.allResults}" var="result"
                              styleClass="result_table"
                              rules="all"
                              id="result_table">
