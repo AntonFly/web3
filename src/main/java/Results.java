@@ -7,6 +7,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -44,8 +46,9 @@ public class Results {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         logger.info("Map "+requestParameterMap);
         String xstr = requestParameterMap.get("X");
-        String ystr = requestParameterMap.get("xyr_form:y_input");
+        String ystr = requestParameterMap.get("Y1");
         String rstr = requestParameterMap.get("R");
+
         logger.info("X=" + xstr);
         logger.info("Y=" + ystr);
         logger.info("R=" + rstr);
@@ -59,6 +62,10 @@ public class Results {
         } catch (Exception e) {
             return -1;
         }
+        x=Math.round(x*1000.)/1000.;
+        y=new BigDecimal(y).setScale(3, RoundingMode.UP).doubleValue();
+        logger.info("X=" + x);
+        logger.info("Y=" + y);
         if (!MatchingManager.validate(x, y, r))
             return -1;
         boolean check = MatchingManager.isInArea(x, y, r);

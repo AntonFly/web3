@@ -39,7 +39,7 @@ public class YValidator {
         } catch (Exception e) {
             logger.info(fieldText+" ;2 "+respText);
             fieldText="";
-            return  "Error!";
+            return  "Введите корректное значение Y!";
         }
      return "";}
 }

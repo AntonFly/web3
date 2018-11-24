@@ -44,7 +44,7 @@
 
 
             <td class="input" >
-                <h:form  id="xyr_form" name="xyr_form"  method="post" onsubmit="#{results.addResult()}" >
+                <h:form  id="xyr_form" name="xyr_form"  method="post"  >
 
 
                     <p id = "x-block">Введите координату X:<br/>
@@ -64,13 +64,16 @@
                         <p:inputText id="y_input"
                                      type="text"
                                      name="Y"
+                                     class="y_input"
                                      title="Целое или дробное число"
                                      placeholder="{-5 ... 3}"
                                      maxlength="5"
                                      required="true"
+                                     onchange="changeY()"
                                      size="20"
-                                     value = "#{YValidator.fieldText}">
-                            <p:ajax event="keyup" update="out" />
+
+                        >
+                            <p:ajax event="keyup" update="out"  />
                         </p:inputText>
 
                         <br/>
@@ -99,11 +102,12 @@
                     </p>
                     <br/>
 
-                    <p:commandButton type="submit" styleClass="check-button" id="sendButton"
+                    <p:commandButton type="submit" styleClass="check-button" id="sendButton" class="check-button"
                                      value="Отправить" update="result_table xyr_form" action="#{results.addResult}"
-                                     oncomplete="drawPoints();" onerror="document.location.reload(true);"/>
+                                     oncomplete=" drawPoints();" onerror="document.location.reload(true);"/>
                     <input type="hidden" name="X" id="atrX" value=""/>
                     <input type="hidden" name="R" id="atrR" value=""/>
+                    <input type="hidden" name="Y1" id="atrY" value=""/>
                 </h:form>
             </td>
 

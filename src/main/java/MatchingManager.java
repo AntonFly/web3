@@ -15,7 +15,7 @@ public final class MatchingManager {
 
     public static boolean isInArea(double x, double y, double r) {
         return (y >= 0 && x >= 0 && x <= r  && y <= r/2) ||     //rectangle
-                (x >= 0 && y <= 0 && y >= -2*x - r ) ||      //triangle
+                (x >= 0 && y <= 0 && y >= 2*x - r ) ||      //triangle
                 (y >= 0 && x <= 0 && x * x + y * y <= r * r );   //circle
     }
 }

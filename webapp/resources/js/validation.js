@@ -15,13 +15,11 @@ let dotsArray=[];
 
 function changeX(X){
     x=X;
-    alert(x);
     $("#atrX").val(x);
 
 }
 function changeR(R) {
          r= R;
-         alert(r);
         $("#atrR").val(r);
         drawPoints();
 }
@@ -37,13 +35,13 @@ function canvasSubmit(event) {
         let deltaY=canvas.height/2+padding;
         let coorX = ((posX - deltaX) / (2*quarter_width/r) ).toFixed(3);
         let coorY = ((-posY + deltaY) / (2*quarter_height/r) ).toFixed(3);
-        alert(canvas.width+" "+ deltaX+" "+"\n"+canvas.height +"\nposX "+posX+"\nposY "+posY+"\nX "+coorX+"\nY "+coorY);
+        // alert(canvas.width+" "+ deltaX+" "+"\n"+canvas.height +"\nposX "+posX+"\nposY "+posY+"\nX "+coorX+"\nY "+coorY);
         let formData = new FormData;
         $("#atrX").val(coorX);
-        $("#y_input").val(coorY);
+        $("#atrY").val(coorY);
         $("#atrR").val(r);
-        // form.submit();
-        $("#sendButton").click();
+        alert($("#atrX").val()+$("#atrY").val()+$("#atrR").val());
+        $(".check-button").click();
 }
 
 
@@ -258,27 +256,6 @@ function drawCanvas(canvas, r) {
              context.fill();
 
 }
-// function canvasListener(canvas) {
-//     let padding=parseInt($("#grid").css("padding"))+parseInt($("#grid").css("border"));
-//     let width = canvas.width;
-//     let height = canvas.height;
-//
-//
-//
-//         let posX=event.pageX-getOffsetRect(canvas).left;
-//         let posY =event.pageY-getOffsetRect(canvas).top;
-//         let deltaX=canvas.width/2+padding;
-//         let deltaY=canvas.height/2+padding;
-//         let coorX = ((posX - deltaX) / (2*quarter_width/r) ).toFixed(3);
-//         let coorY = ((-posY + deltaY) / (2*quarter_height/r) ).toFixed(3);
-//         // alert(canvas.width+" "+ deltaX+" "+"\n"+canvas.height +"\nposX "+posX+"\nposY "+posY+"\nX "+coorX+"\nY "+coorY);
-//         let formData = new FormData;
-//         formData.append("X", coorX);
-//         formData.append("Y", coorY);
-//         formData.append("R", r);
-//
-//
-// }
 function getOffsetRect(elem) {
     let box = elem.getBoundingClientRect();
     let body = document.body;
@@ -306,14 +283,9 @@ function linkR_pressed(link) {
     linkcur=link;
     link.style.color ='rgb(255,102,0)';
 }
-function formSubmit(){
-    fetch("#{", {
-        method: "POST",
-        credentials: "include",
-        body: formJson,
-        headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
+function changeY() {
+    alert($(".y_input").val());
+    $("#atrY").val($(".y_input").val());
+
+
 }
