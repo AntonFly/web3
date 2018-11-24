@@ -15,10 +15,7 @@
     <meta http-equiv="refresh"
           content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/views/index.xhtml"/>
     <link rel = "stylesheet" href="../resources/css/st.css"/>
-    <link rel = "text/javascript" href="../resources/js/validation.js"/>
 
-    <!--<h:outputScript name="sort_table.js" library="js"/>-->
-    <!--<h:outputScript name="field.js" library="js"/>-->
 </h:head>
     <h:body>
         <article>
@@ -50,17 +47,17 @@
                 <h:form  id="xyr_form" name="xyr_form"  method="post" >
 
                     <p id = "x-block">Введите координату X:<br/>
-                        <p:commandButton class="x_input"  value="-4"/>
-                        <p:commandButton class="x_input" value="-3"/>
-                        <p:commandButton class="x_input" value="-2"/>
+                        <p:commandButton class="x_input" name="X" value="-4"/>
+                        <p:commandButton class="x_input" name="X" value="-3"/>
+                        <p:commandButton class="x_input" name="X" value="-2"/>
                         <br/>
-                        <p:commandButton class="x_input" value="-1"/>
-                        <p:commandButton class="x_input" value="0"/>
-                        <p:commandButton class="x_input" value="1"/>
+                        <p:commandButton class="x_input" name="X" value="-1"/>
+                        <p:commandButton class="x_input" name="X" value="0"/>
+                        <p:commandButton class="x_input" name="X" value="1"/>
                         <br/>
-                        <p:commandButton class="x_input" value="2"/>
-                        <p:commandButton class="x_input" value="3"/>
-                        <p:commandButton class="x_input" value="4"/>
+                        <p:commandButton class="x_input" name="X" value="2"/>
+                        <p:commandButton class="x_input" name="X" value="3"/>
+                        <p:commandButton class="x_input" name="X" value="4"/>
                         <!--<p:inputText id="x_input" type="text" name="X" placeholder="{-5 ... 5}"-->
                                <!--maxlength="5"-->
                                <!--oninput= "setCustomValidity('')"-->
@@ -68,7 +65,7 @@
                         <!--/>-->
                     </p>
                     <p id = "y-block">Введите координату Y:<br/>
-                        <p:inputText id="y_input"
+                        <h:inputText id="y_input"
                                      type="text"
                                      name="Y"
                                      title="Целое или дробное число"
@@ -76,20 +73,22 @@
                                      maxlength="5"
                                      required="true"
                                      requiredMessage="Неверный параметр Y, введите корректное знаечние"
-                                     validator="YValidator"
-                                     size="20"/>
+                                     size="20"><c:validator validatorId= "YValidator"/></h:inputText>
                         <br/>
-                        <h:message for="y-block" style="color:red" />
+                        <h:message for="y_input" style="color:red" />
                     </p>
                     <p id = "r-block">Введите параметр R:<br/>
-                        <p:commandLink value="1"/>
-                        <p:commandLink value="2"/>
-                        <p:commandLink value="3"/>
-                        <p:commandLink value="4"/>
-                        <p:commandLink value="5"/>
-                        <br/></p>
+                        <p:commandLink name="R" onclick="changeR(1)" value="1"/><p:spacer width="20px"/>
+                        <p:commandLink name="R" onclick="changeR(2)" value="2"/><p:spacer width="20px"/>
+                        <p:commandLink name="R" onclick="changeR(3)" value="3"/><p:spacer width="20px"/>
+                        <p:commandLink name="R" onclick="changeR(4)" value="4"/><p:spacer width="20px"/>
+                        <p:commandLink name="R" onclick="changeR(5)" value="5"/><p:spacer width="20px"/>
+                        </p>
+                    <br/>
 
-                    <input type="submit" value="Проверить"/>
+                    <h:commandButton type="submit" styleClass="check-button"
+                                     value="Отправить" update="result-table form" action="#{results.addResult}"
+                                     oncomplete="drawPoints();" onerror="document.location.reload(true);"/>
                 </h:form>
             </td>
 

@@ -1,42 +1,43 @@
+import com.jcraft.jsch.*;
+
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 @ManagedBean(name = "results")
 @SessionScoped
 public class Results {
-    private final Connection connection;
-    /*private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASS = "iaq150";*/
-    private static final String DB_URL = "jdbc:postgresql://pg:5432/studs";
-    private static final String USER = "s242461";
-    private static final String PASS = "ybb203";
-    private static final String TABLE_NAME = "results";
     private final String sessionID;
     private final Logger logger;
-
-    {
-        connection = new JDBCManager(DB_URL, USER, PASS, true).getConnection();
+    private final String TABLE_NAME;
+    private Connection connection;
+     {
+        TABLE_NAME = "results";
         FacesContext fCtx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
         sessionID = session.getId();
         logger = Logger.getLogger("logger");
-        try {
-            logger.addHandler(new FileHandler("log.txt"));
-        } catch (Exception e) {
-            logger.info(e.getMessage());
-        }
+         try {
+             logger.addHandler(new FileHandler("log.txt"));
+         } catch (Exception e) {
+             logger.info(e.getMessage());
+         }
+         DBConnection.getConnection();
     }
+
 
     public int addResult() {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -75,7 +76,10 @@ public class Results {
         result.append("');");
         logger.info("try");
         try {
-            return connection.createStatement().executeUpdate(result.toString());
+            DBConnection.setStatement();
+            DBConnection.statement.executeUpdate(result.toString());
+            DBConnection.closeStatement();
+            return 1;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,11 +87,12 @@ public class Results {
         return -1;
     }
 
-    public List<ResultRow> getAllResults() {
+    public List<ResultRow>  getAllResults() {
         List<ResultRow> resultRows = new ArrayList<ResultRow>();
         try {
-            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM " + TABLE_NAME +
-                    " WHERE sessionID = '" + sessionID + "';");
+            DBConnection.setStatement();
+            ResultSet resultSet = DBConnection.statement.executeQuery("SELECT * FROM " + TABLE_NAME +
+                    ";");
             while (resultSet.next()) {
                 ResultRow resultRow = new ResultRow();
                 resultRow.setX(resultSet.getString("x"));
@@ -97,6 +102,7 @@ public class Results {
                 resultRows.add(resultRow);
             }
             resultSet.close();
+            DBConnection.closeStatement();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -106,10 +112,14 @@ public class Results {
     @PreDestroy
     private void clearResults() {
         try {
-            connection.createStatement().executeUpdate("DELETE FROM " + TABLE_NAME +
+            DBConnection.setStatement();
+            DBConnection.statement.executeUpdate("DELETE FROM " + TABLE_NAME +
                     " WHERE sessionID = '" + sessionID + "';");
+            DBConnection.closeStatement();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }

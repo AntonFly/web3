@@ -1,27 +1,38 @@
 let form = document.getElementById("xyr_form");
 let canvas = document.getElementById("grid");
+alert(canvas);
+let grid =$("#grid");
 let width = canvas.width;
 let height = canvas.height;
 let half_width = width / 2;
 let half_height = height / 2;
 let quarter_width = half_width / 2 - (width / 20);
 let quarter_height = half_height / 2 - (height / 20);
+let r= 2;
 
-const r = 45;
 const extraValue = 0;
 
+function changeR(R) {
+         r= R;
+        drawPoints();
+}
+
 function canvasSubmit(event) {
-    let rect = $("#canvas")[0].getBoundingClientRect();
-    let paramR = $("input[name$='param-r']").val();
-    let x = (event.clientX - rect.left - width / 2) / getCustomR() * paramR;
-    let y = (height / 2 - (event.clientY - rect.top)) / getCustomR() * paramR;
-    if (x < -4)
-        x = -5; //magic value for validation failed
-    if(x > 4)
-        x = 5; //magic value for validation failed
-    x = (Math.round(x*2)*1.)/2;
-    $("input[name*='param-x']").val(x);
-    $("input[name$='param-y']").val(y);
+    let padding=parseInt(grid.css("padding"))+parseInt(grid.css("border"));
+    let width = canvas.width;
+    let height = canvas.height;
+    let r = new FormData(form).get("R");
+        let posX=event.pageX-getOffsetRect(canvas).left;
+        let posY =event.pageY-getOffsetRect(canvas).top;
+        let deltaX=canvas.width/2+padding;
+        let deltaY=canvas.height/2+padding;
+        let coorX = ((posX - deltaX) / (2*quarter_width/r) ).toFixed(3);
+        let coorY = ((-posY + deltaY) / (2*quarter_height/r) ).toFixed(3);
+        // alert(canvas.width+" "+ deltaX+" "+"\n"+canvas.height +"\nposX "+posX+"\nposY "+posY+"\nX "+coorX+"\nY "+coorY);
+        let formData = new FormData;
+        formData.append("X", coorX);
+        formData.append("Y", coorY);
+        formData.append("R", r);
     formSubmit();
 }
 
@@ -34,14 +45,15 @@ function getCustomR() {
 }
 
 function drawPoints() {
+    alert("drow");
     let canvas = document.getElementById("grid");
     let ctx = canvas.getContext("2d");
-    let customR = 2;
+    let customR = r;
 
 
     let allPointExist = true;
-
     let values = $("#result-table td").toArray();
+    alert(values);
     if (values.length > 3)
         for (let i = 0; i < values.length / 4; ++i) {
             allPointExist &= drawPoint(ctx,
@@ -54,7 +66,7 @@ function drawPoints() {
     if (!allPointExist)
         drawWarningMessage(ctx, "Не все точки будут отображены!", "#dc9100");
 
-    drawCanvas(canvas,customR);
+    drawCanvas(canvas,r);
 }
 
 function drawPoint(ctx, x, y, r, match, color) {
@@ -224,19 +236,18 @@ function drawCanvas(canvas, r) {
         context.fillStyle = "orange";
 
         //Create point of answer
-        if(new FormData(form).get("R") !== "" ) {
-            dotsArray.forEach(function (dot) {
-                //alert(r + " aaaaaaaa");
-                var pointer_x = (dot.x / r) * quarter_width * 2;
-                var pointer_y = (dot.y / r) * quarter_height * 2;
-
-                context.beginPath();
-                context.arc(half_width + pointer_x, half_height - pointer_y, 1, 2 * Math.PI, 0);
-                context.closePath();
-                context.fill();
-                context.stroke();
-            });
-        }
+        // if(new FormData(form).get("R") !== "" ) {
+        //     dotsArray.forEach(function (dot) {
+        //         //alert(r + " aaaaaaaa");
+        //         var pointer_x = (dot.x / r) * quarter_width * 2;
+        //         var pointer_y = (dot.y / r) * quarter_height * 2;
+        //
+        //         context.beginPath();
+        //         context.arc(half_width + pointer_x, half_height - pointer_y, 1, 2 * Math.PI, 0);
+        //         context.closePath();
+        //         context.fill();
+        //         context.stroke();
+        //     });
+        // }
     }
-
 }
