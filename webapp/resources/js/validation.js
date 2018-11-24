@@ -40,7 +40,7 @@ function canvasSubmit(event) {
         $("#atrX").val(coorX);
         $("#atrY").val(coorY);
         $("#atrR").val(r);
-        alert($("#atrX").val()+$("#atrY").val()+$("#atrR").val());
+        // alert($("#atrX").val()+$("#atrY").val()+$("#atrR").val());
         $(".check-button").click();
 }
 
@@ -284,7 +284,6 @@ function linkR_pressed(link) {
     link.style.color ='rgb(255,102,0)';
 }
 function changeY() {
-    alert($(".y_input").val());
     $("#atrY").val($(".y_input").val());
 
 
