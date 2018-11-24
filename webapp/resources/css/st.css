@@ -231,5 +231,11 @@ p{
 .x_input{
     width: 70px;
     text-align: center;
+    background: rgb(255,255,224);
+    text-shadow:0 0 0;
+    box-shadow: 0 0 0
 }
-
+.cmLink{
+    text-decoration: none;
+    color: black;
+}

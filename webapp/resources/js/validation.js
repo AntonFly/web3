@@ -1,6 +1,6 @@
 let form = document.getElementById("xyr_form");
 let canvas = document.getElementById("grid");
-alert(canvas);
+
 let grid =$("#grid");
 let width = canvas.width;
 let height = canvas.height;
@@ -11,17 +11,18 @@ let quarter_height = half_height / 2 - (height / 20);
 let r= 3;
 let x= 3;
 let dotsArray=[];
-const extraValue = 0;
+
+
 function changeX(X){
     x=X;
     alert(x);
-    form.appendData("X",x);
+    $("#atrX").val(x);
 
 }
 function changeR(R) {
          r= R;
          alert(r);
-         form.appendData("R",r);
+        $("#atrR").val(r);
         drawPoints();
 }
 
@@ -36,12 +37,13 @@ function canvasSubmit(event) {
         let deltaY=canvas.height/2+padding;
         let coorX = ((posX - deltaX) / (2*quarter_width/r) ).toFixed(3);
         let coorY = ((-posY + deltaY) / (2*quarter_height/r) ).toFixed(3);
-        // alert(canvas.width+" "+ deltaX+" "+"\n"+canvas.height +"\nposX "+posX+"\nposY "+posY+"\nX "+coorX+"\nY "+coorY);
+        alert(canvas.width+" "+ deltaX+" "+"\n"+canvas.height +"\nposX "+posX+"\nposY "+posY+"\nX "+coorX+"\nY "+coorY);
         let formData = new FormData;
-        formData.append("X", coorX);
-        formData.append("Y", coorY);
-        formData.append("R", r);
-    formSubmit();
+        $("#atrX").val(coorX);
+        $("#y_input").val(coorY);
+        $("#atrR").val(r);
+        // form.submit();
+        $("#sendButton").click();
 }
 
 
@@ -83,6 +85,9 @@ function drawWarningMessage(ctx, message, color) {
 $(() => {
     drawPoints();
     setListeners();
+    // canvas.addEventListener("click", function () {
+    //     canvasListener(canvas);
+    // });
 });
 
 function setListeners() {
@@ -218,20 +223,18 @@ function drawCanvas(canvas, r) {
         context.fillStyle = "orange";
 
         //Create point of answer
-        for (let i = 0; i < dotsArray.length / 4; ++i){
-            let x=dotsArray[i*4].innerText;
-
-            let y=dotsArray[i*4+1].innerText;
-            // let r=dotsArray[i*4+2].innerText;
-            let res=dotsArray[i*4+3].innerText;
-
-            if (res=="false")
-                context.fillStyle = "#FFAE00";
-            else
-                context.fillStyle = "#00D300";
+        if(new FormData(form).get("R") !== "" ){
+            for (let i = 0; i < dotsArray.length / 4; ++i){
+                let x=dotsArray[i*4].innerText;
+                let y=dotsArray[i*4+1].innerText;
+                // let r=dotsArray[i*4+2].innerText;
+                let res=dotsArray[i*4+3].innerText;
+                if (res=="false")
+                    context.fillStyle = "#FFAE00";
+                else
+                    context.fillStyle = "#00D300";
                 let pointer_x = (x / r) * quarter_width * 2;
                 let pointer_y = (y / r) * quarter_height * 2;
-
                 context.beginPath();
                 context.arc(half_width + pointer_x, half_height - pointer_y, 2, 2 * Math.PI, 0);
                 context.closePath();
@@ -239,6 +242,7 @@ function drawCanvas(canvas, r) {
                 context.stroke();
             }
         }
+    }
 
 }
  function drawPoint(context,x,y,r,res,color){
@@ -253,4 +257,63 @@ function drawCanvas(canvas, r) {
              context.closePath();
              context.fill();
 
+}
+// function canvasListener(canvas) {
+//     let padding=parseInt($("#grid").css("padding"))+parseInt($("#grid").css("border"));
+//     let width = canvas.width;
+//     let height = canvas.height;
+//
+//
+//
+//         let posX=event.pageX-getOffsetRect(canvas).left;
+//         let posY =event.pageY-getOffsetRect(canvas).top;
+//         let deltaX=canvas.width/2+padding;
+//         let deltaY=canvas.height/2+padding;
+//         let coorX = ((posX - deltaX) / (2*quarter_width/r) ).toFixed(3);
+//         let coorY = ((-posY + deltaY) / (2*quarter_height/r) ).toFixed(3);
+//         // alert(canvas.width+" "+ deltaX+" "+"\n"+canvas.height +"\nposX "+posX+"\nposY "+posY+"\nX "+coorX+"\nY "+coorY);
+//         let formData = new FormData;
+//         formData.append("X", coorX);
+//         formData.append("Y", coorY);
+//         formData.append("R", r);
+//
+//
+// }
+function getOffsetRect(elem) {
+    let box = elem.getBoundingClientRect();
+    let body = document.body;
+    let docElem = document.documentElement;
+    let scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+    let scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+    let clientTop = docElem.clientTop || body.clientTop || 0;
+    let clientLeft = docElem.clientLeft || body.clientLeft || 0;
+    let top  = box.top +  scrollTop - clientTop;
+    let left = box.left + scrollLeft - clientLeft;
+    return { top: Math.round(top), left: Math.round(left) }
+}
+let buttoncur;
+function buttonX_pressed(button) {
+    if(buttoncur)
+        buttoncur.style.backgroundColor='rgb(255,255,224)';
+    buttoncur = button;
+    button.style.backgroundColor ='rgb(255,102,0)';
+}
+
+let linkcur;
+function linkR_pressed(link) {
+    if(linkcur)
+        linkcur.style.color='black';
+    linkcur=link;
+    link.style.color ='rgb(255,102,0)';
+}
+function formSubmit(){
+    fetch("#{", {
+        method: "POST",
+        credentials: "include",
+        body: formJson,
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
 }

@@ -1,4 +1,5 @@
 import com.jcraft.jsch.*;
+import com.oracle.webservices.internal.api.message.PropertySet;
 
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
@@ -38,13 +39,13 @@ public class Results {
          DBConnection.getConnection();
     }
 
-
+    @PropertySet.Property("addResult")
     public int addResult() {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         logger.info("Map "+requestParameterMap);
-        String xstr = requestParameterMap.get("xyr_form:X");
+        String xstr = requestParameterMap.get("X");
         String ystr = requestParameterMap.get("xyr_form:y_input");
-        String rstr = requestParameterMap.get("xyr_form:R");
+        String rstr = requestParameterMap.get("R");
         logger.info("X=" + xstr);
         logger.info("Y=" + ystr);
         logger.info("R=" + rstr);
@@ -58,9 +59,9 @@ public class Results {
         } catch (Exception e) {
             return -1;
         }
-        if (!MatchingManager.valid(x, y, r))
+        if (!MatchingManager.validate(x, y, r))
             return -1;
-        boolean check = MatchingManager.match(x, y, r);
+        boolean check = MatchingManager.isInArea(x, y, r);
         StringBuilder result = new StringBuilder();
         result.append("INSERT INTO ");
         result.append(TABLE_NAME);
@@ -93,7 +94,7 @@ public class Results {
         try {
             DBConnection.setStatement();
             ResultSet resultSet = DBConnection.statement.executeQuery("SELECT * FROM " + TABLE_NAME +
-                    ";");
+                    " WHERE sessionID = '" + sessionID + "';");
             while (resultSet.next()) {
                 ResultRow resultRow = new ResultRow();
                 resultRow.setX(resultSet.getString("x"));
@@ -110,17 +111,17 @@ public class Results {
         return resultRows;
     }
 
-    @PreDestroy
-    private void clearResults() {
-        try {
-            DBConnection.setStatement();
-            DBConnection.statement.executeUpdate("DELETE FROM " + TABLE_NAME +
-                    " WHERE sessionID = '" + sessionID + "';");
-            DBConnection.closeStatement();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @PreDestroy
+//    private void clearResults() {
+//        try {
+//            DBConnection.setStatement();
+//            DBConnection.statement.executeUpdate("DELETE FROM " + TABLE_NAME +
+//                    " WHERE sessionID = '" + sessionID + "';");
+//            DBConnection.closeStatement();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 }

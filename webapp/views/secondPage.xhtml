@@ -44,56 +44,71 @@
 
 
             <td class="input" >
-                <h:form  id="xyr_form" name="xyr_form"  method="post" >
+                <h:form  id="xyr_form" name="xyr_form"  method="post" onsubmit="#{results.addResult()}" >
+
 
                     <p id = "x-block">Введите координату X:<br/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-4)" name="X" value="-4"/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-3)" name="X" value="-3"/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-2)" name="X" value="-2"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-4),buttonX_pressed(this)" name="X" value="-4"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-3),buttonX_pressed(this)" name="X" value="-3"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-2),buttonX_pressed(this)" name="X" value="-2"/>
                         <br/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-1)" name="X" value="-1"/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(0)" name="X" value="0"/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(1)" name="X" value="1"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-1),buttonX_pressed(this)" name="X" value="-1"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(0),buttonX_pressed(this)" name="X" value="0"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(1),buttonX_pressed(this)" name="X" value="1"/>
                         <br/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(2)" name="X" value="2"/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(3)" name="X" value="3"/>
-                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(4)" name="X" value="4"/>
-                        <!--<p:inputText id="x_input" type="text" name="X" placeholder="{-5 ... 5}"-->
-                               <!--maxlength="5"-->
-                               <!--oninput= "setCustomValidity('')"-->
-                               <!--size="20"-->
-                        <!--/>-->
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(2),buttonX_pressed(this)" name="X" value="2"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(3),buttonX_pressed(this)" name="X" value="3"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(4),buttonX_pressed(this)" name="X" value="4"/>
                     </p>
                     <p id = "y-block">Введите координату Y:<br/>
-                        <h:inputText id="y_input"
+                        <p:inputText id="y_input"
                                      type="text"
                                      name="Y"
                                      title="Целое или дробное число"
                                      placeholder="{-5 ... 3}"
                                      maxlength="5"
                                      required="true"
-                                     requiredMessage="Неверный параметр Y, введите корректное знаечние"
-                                     size="20"><c:validator validatorId= "YValidator"/></h:inputText>
+                                     size="20"
+                                     value = "#{YValidator.fieldText}">
+                            <p:ajax event="keyup" update="out" />
+                        </p:inputText>
+
                         <br/>
-                        <h:message for="y_input" style="color:red" />
+                        <h:outputText rendered="true" id="out" value="#{YValidator.validation()}" style="color:red"/>
                     </p>
+
+                    <!--<p id = "y-block">Введите координату Y:<br/>-->
+                        <!--<h:inputText id="y_input"-->
+                                     <!--type="text"-->
+                                     <!--name="Y"-->
+                                     <!--title="Целое или дробное число"-->
+                                     <!--placeholder="{-5 ... 3}"-->
+                                     <!--maxlength="5"-->
+                                     <!--required="true"-->
+                                     <!--requiredMessage="Неверный параметр Y, введите корректное знаечние"-->
+                                     <!--size="20"><c:validator validatorId= "YValidator"/></h:inputText>-->
+                        <!--<br/>-->
+                        <!--<h:message for="y_input" style="color:red" />-->
+                    <!--</p>-->
                     <p id = "r-block">Введите параметр R:<br/>
-                        <p:commandLink name="R" onclick="changeR(1)" value="1"/><p:spacer width="20px"/>
-                        <p:commandLink name="R" onclick="changeR(2)" value="2"/><p:spacer width="20px"/>
-                        <p:commandLink name="R" onclick="changeR(3)" value="3"/><p:spacer width="20px"/>
-                        <p:commandLink name="R" onclick="changeR(4)" value="4"/><p:spacer width="20px"/>
-                        <p:commandLink name="R" onclick="changeR(5)" value="5"/><p:spacer width="20px"/>
-                        </p>
+                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(1) ,linkR_pressed(this)" value="1"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(2) ,linkR_pressed(this)" value="2"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(3),linkR_pressed(this)" value="3"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(4),linkR_pressed(this)" value="4"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(5),linkR_pressed(this)" value="5"/><p:spacer width="20px"/>
+                    </p>
                     <br/>
 
-                    <p:commandButton type="submit" styleClass="check-button"
+                    <p:commandButton type="submit" styleClass="check-button" id="sendButton"
                                      value="Отправить" update="result_table xyr_form" action="#{results.addResult}"
                                      oncomplete="drawPoints();" onerror="document.location.reload(true);"/>
+                    <input type="hidden" name="X" id="atrX" value=""/>
+                    <input type="hidden" name="R" id="atrR" value=""/>
                 </h:form>
             </td>
 
             <td id="conv_col">
-                <canvas id="grid" onclick="canvasSubmit(event);" title="График области" width="450" height="450"/>
+                <canvas id="grid" onclick="canvasSubmit(event)" title="График области" width="400" height="400"/>
             </td>
 
 
