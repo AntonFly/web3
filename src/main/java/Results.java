@@ -41,12 +41,13 @@ public class Results {
 
     public int addResult() {
         Map<String, String> requestParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String xstr = requestParameterMap.get("form:param-x_input");
-        String ystr = requestParameterMap.get("form:param-y");
-        String rstr = requestParameterMap.get("form:param-r");
+        logger.info("Map "+requestParameterMap);
+        String xstr = requestParameterMap.get("xyr_form:X");
+        String ystr = requestParameterMap.get("xyr_form:y_input");
+        String rstr = requestParameterMap.get("xyr_form:R");
         logger.info("X=" + xstr);
         logger.info("Y=" + ystr);
-        logger.info("R" + rstr);
+        logger.info("R=" + rstr);
         double x;
         double y;
         double r;

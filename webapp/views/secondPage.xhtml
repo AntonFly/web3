@@ -47,17 +47,17 @@
                 <h:form  id="xyr_form" name="xyr_form"  method="post" >
 
                     <p id = "x-block">Введите координату X:<br/>
-                        <p:commandButton class="x_input" name="X" value="-4"/>
-                        <p:commandButton class="x_input" name="X" value="-3"/>
-                        <p:commandButton class="x_input" name="X" value="-2"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-4)" name="X" value="-4"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-3)" name="X" value="-3"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-2)" name="X" value="-2"/>
                         <br/>
-                        <p:commandButton class="x_input" name="X" value="-1"/>
-                        <p:commandButton class="x_input" name="X" value="0"/>
-                        <p:commandButton class="x_input" name="X" value="1"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(-1)" name="X" value="-1"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(0)" name="X" value="0"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(1)" name="X" value="1"/>
                         <br/>
-                        <p:commandButton class="x_input" name="X" value="2"/>
-                        <p:commandButton class="x_input" name="X" value="3"/>
-                        <p:commandButton class="x_input" name="X" value="4"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(2)" name="X" value="2"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(3)" name="X" value="3"/>
+                        <p:commandButton class="x_input" onclick="event.preventDefault(),changeX(4)" name="X" value="4"/>
                         <!--<p:inputText id="x_input" type="text" name="X" placeholder="{-5 ... 5}"-->
                                <!--maxlength="5"-->
                                <!--oninput= "setCustomValidity('')"-->
@@ -86,14 +86,14 @@
                         </p>
                     <br/>
 
-                    <h:commandButton type="submit" styleClass="check-button"
-                                     value="Отправить" update="result-table form" action="#{results.addResult}"
+                    <p:commandButton type="submit" styleClass="check-button"
+                                     value="Отправить" update="result_table xyr_form" action="#{results.addResult}"
                                      oncomplete="drawPoints();" onerror="document.location.reload(true);"/>
                 </h:form>
             </td>
 
             <td id="conv_col">
-                <canvas id="grid" onclick="canvasSubmit(event);" title="График облоати" width="400" height="400"/>
+                <canvas id="grid" onclick="canvasSubmit(event);" title="График области" width="450" height="450"/>
             </td>
 
 
@@ -106,24 +106,24 @@
                              rules="all"
                              id="result_table">
                     <h:column>
-                        <c:facet name="header">X <span class="sort-symbol">⮃</span></c:facet>
+                        <c:facet name="header">X </c:facet>
                         #{result.x}
                     </h:column>
                     <h:column>
-                        <c:facet name="header">Y <span class="sort-symbol">⮃</span></c:facet>
+                        <c:facet name="header">Y </c:facet>
                         #{result.y}
                     </h:column>
                     <h:column>
-                        <c:facet name="header">R <span class="sort-symbol">⮃</span></c:facet>
+                        <c:facet name="header">R </c:facet>
                         #{result.r}
                     </h:column>
                     <h:column>
                         <c:facet name="header">Попадание <span class="sort-symbol">⮃</span></c:facet>
                         <h:panelGroup rendered="#{result.match}">
-                            <span id="yes">да</span>
+                            <span id="yes">true</span>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{!result.match}">
-                            <span id="no">нет</span>
+                            <span id="no">false</span>
                         </h:panelGroup>
                     </h:column>
                 </h:dataTable>

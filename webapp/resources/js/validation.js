@@ -8,12 +8,20 @@ let half_width = width / 2;
 let half_height = height / 2;
 let quarter_width = half_width / 2 - (width / 20);
 let quarter_height = half_height / 2 - (height / 20);
-let r= 2;
-
+let r= 3;
+let x= 3;
+let dotsArray=[];
 const extraValue = 0;
+function changeX(X){
+    x=X;
+    alert(x);
+    form.appendData("X",x);
 
+}
 function changeR(R) {
          r= R;
+         alert(r);
+         form.appendData("R",r);
         drawPoints();
 }
 
@@ -21,7 +29,7 @@ function canvasSubmit(event) {
     let padding=parseInt(grid.css("padding"))+parseInt(grid.css("border"));
     let width = canvas.width;
     let height = canvas.height;
-    let r = new FormData(form).get("R");
+
         let posX=event.pageX-getOffsetRect(canvas).left;
         let posY =event.pageY-getOffsetRect(canvas).top;
         let deltaX=canvas.width/2+padding;
@@ -36,47 +44,21 @@ function canvasSubmit(event) {
     formSubmit();
 }
 
-function getCustomR() {
-    let result = $('input[name$="param-r"]').val().replace(",", ".") * r;
-    if (isNaN(result) || result < r || result > r * 4)
-        return r;
-    else
-        return result;
-}
+
 
 function drawPoints() {
-    alert("drow");
-    let canvas = document.getElementById("grid");
-    let ctx = canvas.getContext("2d");
-    let customR = r;
-
-
-    let allPointExist = true;
-    let values = $("#result-table td").toArray();
-    alert(values);
-    if (values.length > 3)
-        for (let i = 0; i < values.length / 4; ++i) {
-            allPointExist &= drawPoint(ctx,
-                values[i * 4].innerText,
-                values[i * 4 + 1].innerText,
-                values[i * 4 + 2].innerText,
-                !values[i * 4 + 3].innerText.includes("нет"));
-        }
-
-    if (!allPointExist)
-        drawWarningMessage(ctx, "Не все точки будут отображены!", "#dc9100");
-
+    dotsArray = $("#result_table td").toArray();
     drawCanvas(canvas,r);
 }
 
-function drawPoint(ctx, x, y, r, match, color) {
+function drawPointSHILKO(ctx, x, y, r, match, color) {
     if (color)
         ctx.fillStyle = color;
     else if (!match)
         ctx.fillStyle = "#FFAE00";
     else
         ctx.fillStyle = "#00D300";
-    let customR = getCustomR();
+    let customR = r;
     let pointX = x * customR / r + width / 2;
     let pointY = -y * customR / r + height / 2;
     if (pointX < 0 || pointY < 0 || pointX > width || pointY > height)
@@ -236,18 +218,39 @@ function drawCanvas(canvas, r) {
         context.fillStyle = "orange";
 
         //Create point of answer
-        // if(new FormData(form).get("R") !== "" ) {
-        //     dotsArray.forEach(function (dot) {
-        //         //alert(r + " aaaaaaaa");
-        //         var pointer_x = (dot.x / r) * quarter_width * 2;
-        //         var pointer_y = (dot.y / r) * quarter_height * 2;
-        //
-        //         context.beginPath();
-        //         context.arc(half_width + pointer_x, half_height - pointer_y, 1, 2 * Math.PI, 0);
-        //         context.closePath();
-        //         context.fill();
-        //         context.stroke();
-        //     });
-        // }
-    }
+        for (let i = 0; i < dotsArray.length / 4; ++i){
+            let x=dotsArray[i*4].innerText;
+
+            let y=dotsArray[i*4+1].innerText;
+            // let r=dotsArray[i*4+2].innerText;
+            let res=dotsArray[i*4+3].innerText;
+
+            if (res=="false")
+                context.fillStyle = "#FFAE00";
+            else
+                context.fillStyle = "#00D300";
+                let pointer_x = (x / r) * quarter_width * 2;
+                let pointer_y = (y / r) * quarter_height * 2;
+
+                context.beginPath();
+                context.arc(half_width + pointer_x, half_height - pointer_y, 2, 2 * Math.PI, 0);
+                context.closePath();
+                context.fill();
+                context.stroke();
+            }
+        }
+
+}
+ function drawPoint(context,x,y,r,res,color){
+            var pointer_x = (x / r) * quarter_width * 2;
+             var pointer_y = (y / r) * quarter_height * 2;
+            if (!res)
+                context.fillStyle = "#FFAE00";
+            else
+                context.fillStyle = "#00D300";
+             context.beginPath();
+             context.arc(half_width + pointer_x, half_height - pointer_y, 1, 2 * Math.PI, 0);
+             context.closePath();
+             context.fill();
+
 }
