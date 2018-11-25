@@ -27,8 +27,8 @@ public class YValidator {
 
     public String validation() {
         try {
-
-            if(fieldText.equals("")) return "";
+            fieldText=fieldText.trim();
+            if(fieldText.equals("") || fieldText.equals(" ")) return " ";
             if(fieldText.charAt(fieldText.length()-1)=='d')
                 throw new IllegalArgumentException();
             double y = Double.parseDouble(fieldText.replace(',', '.'));

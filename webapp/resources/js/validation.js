@@ -21,6 +21,7 @@ function changeX(X){
 function changeR(R) {
          r= R;
         $("#atrR").val(r);
+        removeErrorConv();
         drawPoints();
 }
 
@@ -28,7 +29,11 @@ function canvasSubmit(event) {
     let padding=parseInt(grid.css("padding"))+parseInt(grid.css("border"));
     let width = canvas.width;
     let height = canvas.height;
-
+    // alert(new FormData(form).get("R"));
+    if(new FormData(form).get("R") == "" )
+        showErrorConv();
+        else {
+        removeErrorConv();
         let posX=event.pageX-getOffsetRect(canvas).left;
         let posY =event.pageY-getOffsetRect(canvas).top;
         let deltaX=canvas.width/2+padding;
@@ -40,8 +45,10 @@ function canvasSubmit(event) {
         $("#atrX").val(coorX);
         $("#atrY").val(coorY);
         $("#atrR").val(r);
-        // alert($("#atrX").val()+$("#atrY").val()+$("#atrR").val());
+        $(".y_input").val(" ");
         $(".check-button").click();
+        $(".y_input").val("");
+        }
 }
 
 
@@ -271,7 +278,7 @@ function getOffsetRect(elem) {
 let buttoncur;
 function buttonX_pressed(button) {
     if(buttoncur)
-        buttoncur.style.backgroundColor='rgb(255,255,224)';
+        buttoncur.style.backgroundColor='aliceblue';
     buttoncur = button;
     button.style.backgroundColor ='rgb(255,102,0)';
 }
@@ -287,4 +294,27 @@ function changeY() {
     $("#atrY").val($(".y_input").val());
 
 
+}
+function removeErrorConv() {
+
+    let Block = document.getElementById("conv_col");
+    if (Block.contains(document.getElementById("convErr"))){
+        Block.removeChild(document.getElementById("convErr"));
+        // form.elements[pol].classList.remove("Nor");
+    }
+
+    return 1;
+
+}
+function showErrorConv() {
+
+    let Block= document.getElementById("conv_col");
+    if(!Block.contains(document.getElementById("convErr"))){
+        let errorSpan = document.createElement("div");
+        errorSpan.id = "convErr";
+        errorSpan.innerHTML= "Введите значение R";
+        Block.appendChild(errorSpan);
+        // form.elements[pol].classList.add("NoR");
+    }
+    return 1;
 }

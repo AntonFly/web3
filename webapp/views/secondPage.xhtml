@@ -71,7 +71,7 @@
                                      required="true"
                                      onchange="changeY()"
                                      size="20"
-
+                                    value="#{YValidator.fieldText}"
                         >
                             <p:ajax event="keyup" update="out"  />
                         </p:inputText>
@@ -121,7 +121,7 @@
         <tr id="main">
             <td id ="result_table_place"  colspan="2" height="0">
                 <h:dataTable value="#{results.allResults}" var="result"
-                             styleClass="result_table"
+                             styleClass="scrolling-table"
                              rules="all"
                              id="result_table">
                     <h:column>

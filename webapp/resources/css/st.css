@@ -231,11 +231,93 @@ p{
 .x_input{
     width: 70px;
     text-align: center;
-    background: rgb(255,255,224);
+    background: aliceblue;
     text-shadow:0 0 0;
     box-shadow: 0 0 0
 }
 .cmLink{
     text-decoration: none;
     color: black;
+}
+/*~~~~~~result table~~~~~*/
+.result_table{
+    background-color: aliceblue;
+    border: none;/*2px solid rgb(255,102,0);*/
+    width: 555px;
+    margin-right: auto;
+    margin-left: auto;
+}
+#result_table{
+    background-color: aliceblue;
+    border: none;/*2px solid rgb(255,102,0);*/
+    width: 555px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#scrolling-table {
+    width: 555px;
+    border: none;
+}
+
+.scrolling-table th{
+    /*color: #E90E8B;*/
+    border-bottom: 1px solid rgb(255,102,0);
+    border-right: 1px solid rgb(255,102,0);
+    border-top: none;
+}
+.scrolling-table th:last-child{
+    border-right: none;
+}
+.scrolling-table th:first-child{
+    border-left: none;
+}
+
+.scrolling-table tr td {
+    /*width: 25%;*/
+    padding: 2px 5px;
+    border-right: 1px solid rgb(255,102,0);
+    border-bottom: 1px solid rgb(255,102,0);
+    text-align: center;
+    color: rgb(255,102,0);
+    /*text-decoration-color: #666;*/
+}
+
+.scrolling-table tr td:last-child {
+    border-right: none;
+}
+.scrolling-table tr td:first-child {
+    border-left: none;
+}
+.scrolling-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+.scrolling-table thead{
+    color: rgb(255,102,0);
+    display: block;
+    width: 555px;
+}
+.scrolling-table thead tr{
+    width: 555px;
+}
+.scrolling-table tbody {
+    display: block;
+    max-height: 150px;
+    width: 555px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.scrolling-table tr {
+    display: table;
+    width: 555px;
+    table-layout: fixed;
+}
+.scrolling-table td:nth-last-child(1) {
+    width: 120px !important;
+}
+.scrolling-table th:nth-last-child(1){
+    width: 128px!important;
 }
