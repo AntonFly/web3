@@ -22,6 +22,7 @@ function changeR(R) {
          r= R;
         $("#atrR").val(r);
         removeErrorConv();
+        // alert(1);
         drawPoints();
 }
 

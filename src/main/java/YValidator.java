@@ -2,7 +2,9 @@
 
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name="YValidator")
 public class YValidator {
@@ -42,4 +44,13 @@ public class YValidator {
             return  "Введите корректное значение Y!";
         }
      return "";}
+    public void showMessage() {
+        FacesMessage message = new FacesMessage("Заголовок", "Частичное обновление страницы");
+        message.setSeverity(FacesMessage.SEVERITY_INFO); //как выглядит окошко с сообщением
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Всплывашка", "GrowlMessage"));
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Значение","dsdfsdf"));
+}
 }

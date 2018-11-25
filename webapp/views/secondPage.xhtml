@@ -15,7 +15,7 @@
     <meta http-equiv="refresh"
           content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/views/index.xhtml"/>
     <link rel = "stylesheet" href="../resources/css/st.css"/>
-
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
 </h:head>
     <h:body>
         <article>
@@ -94,20 +94,21 @@
                         <!--<h:message for="y_input" style="color:red" />-->
                     <!--</p>-->
                     <p id = "r-block">Введите параметр R:<br/>
-                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(1) ,linkR_pressed(this)" value="1"/><p:spacer width="20px"/>
-                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(2) ,linkR_pressed(this)" value="2"/><p:spacer width="20px"/>
-                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(3),linkR_pressed(this)" value="3"/><p:spacer width="20px"/>
-                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(4),linkR_pressed(this)" value="4"/><p:spacer width="20px"/>
-                        <p:commandLink styleClass="cmLink" name="R" onclick="changeR(5),linkR_pressed(this)" value="5"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R"  onclick="changeR(1) ,linkR_pressed(this)" value="1"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R"  onclick="changeR(2) ,linkR_pressed(this)" value="2"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R"  onclick="changeR(3),linkR_pressed(this)" value="3"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R"  onclick="changeR(4),linkR_pressed(this)" value="4"/><p:spacer width="20px"/>
+                        <p:commandLink styleClass="cmLink" name="R"  onclick="changeR(5),linkR_pressed(this), event.preventDefault()" value="5"/><p:spacer width="20px"/>
                     </p>
                     <br/>
 
                     <p:commandButton type="submit" styleClass="check-button" id="sendButton" class="check-button"
-                                     value="Отправить" update="result_table xyr_form" action="#{results.addResult}"
+                                     value="Отправить" update="result_table xyr_form growl" action="#{results.addResult}&#{growl.saveMessage}"
                                      oncomplete=" drawPoints();" onerror="document.location.reload(true);"/>
                     <input type="hidden" name="X" id="atrX" value=""/>
                     <input type="hidden" name="R" id="atrR" value=""/>
                     <input type="hidden" name="Y1" id="atrY" value=""/>
+                    <p:growl id="growl" showDetail="true" sticky="true" widgetVar="growl" />
                 </h:form>
             </td>
 
@@ -155,7 +156,14 @@
     <!-- footer -->
     <table  class="rounded_corners" id="footer" cellpadding="0" cellspacing="0" align="center">
         <tbody>
+
         <tr >
+            <td  align="center">
+                <!--<p:button outcome="index" icon="" value="With Icon"/>-->
+                <h:link rendered="true" value="" outcome="index">
+                    <i style="font-size: 40px; color:rgb(255,102,0)" class="fa fa-arrow-left"/>
+                </h:link>
+            </td>
             <td align="center">
                 ВТ-2018
             </td>

@@ -1,6 +1,6 @@
 body {
     background-size: cover;
-    background-image:url(../img/panda3.png);
+    background-image:url(../resources/img/panda3.png);
     background-attachment:fixed;
     background-position:0 0;
 }
@@ -99,7 +99,7 @@ p{
 }
 
 #footer td{
-    width: 33.3%;
+    width: 50%;
 }
 #main form{
     padding-left: 40px;
